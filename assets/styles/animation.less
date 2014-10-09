@@ -1,0 +1,35 @@
+@-webkit-keyframes timer {
+	from {width:100%}
+	60% {background:#2DD8DC;}
+	80% {background:#FF7A7A;}
+	to {width:0%;background:#FF7A7A;}
+}
+
+@-webkit-keyframes expand {
+	0% {}
+	100% {width:100%;}
+}
+
+@-webkit-keyframes fade {
+	0% {opacity:1;}
+	100% {opacity:0;}
+}
+
+@-webkit-keyframes show-answer {
+	0% {max-height:20px;}
+	100% {max-height:1000px;background:#fff;border-color:#ddd;}
+}
+
+@-webkit-keyframes slide-down {
+	0% {transform:translateY(0);}
+	100% {transform:translateY(100%);}
+}
+
+.timer-bar {-webkit-animation:timer 3s 0 1 linear;-webkit-animation-fill-mode:forwards;}
+.half:first-child{-webkit-animation:expand 1s 4s 1 cubic-bezier(0.250, 0.460, 0.450, 0.940);-webkit-animation-fill-mode:forwards;}
+.half:last-child,
+.answer-theirs-submitted span.identity-visible {-webkit-animation:fade 1s 3s 1 ease-out;-webkit-animation-fill-mode:forwards;}
+.answer-mine {-webkit-animation:slide-down 1s 3s 1 cubic-bezier(0.250, 0.460, 0.450, 0.940);-webkit-animation-fill-mode:forwards;}
+#noah {-webkit-animation:show-answer 1s 5s 1 cubic-bezier(0.250, 0.460, 0.450, 0.940);-webkit-animation-fill-mode:forwards;}
+#joe {-webkit-animation:show-answer 1s 7s 1 cubic-bezier(0.250, 0.460, 0.450, 0.940);-webkit-animation-fill-mode:forwards;}
+#david {-webkit-animation:show-answer 1s 9s 1 cubic-bezier(0.250, 0.460, 0.450, 0.940);-webkit-animation-fill-mode:forwards;}
