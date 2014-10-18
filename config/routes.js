@@ -37,7 +37,8 @@ module.exports.routes = {
   },
 
   '/game': {
-    view: 'game'
+    view: 'game',
+    title: 'Things Against Humanity'
   }
 
   /***************************************************************************
