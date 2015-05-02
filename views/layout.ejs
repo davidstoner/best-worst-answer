@@ -1,93 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title><%- title %></title>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
-    <!--  
-        Stylesheets and Preprocessors
-        ==============================
-
-        You can always bring in CSS files manually with `<link>` tags, or asynchronously
-        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage 
-        of Sails' conventional asset pipeline (boilerplate Gruntfile).
-
-        By default, stylesheets from your `assets/styles` folder are included
-        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
-        are supported. In production, your styles will be minified and concatenated into
-        a single file.
-        
-        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-            
-            + Change the order of your CSS files
-            + Import stylesheets from other directories
-            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
-    -->
-
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-    
-    <!--STYLES-->
     <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
   </head>
 
   <body>
-    <%- body %>
+    <div class="panel">
+      <div class="container">
+        <div class="current">
+          <div class="current-czar">Jim</div><h1 class="current-thing">Things that make you feel young.</h1>
+        </div>
 
+        <div class="answers-box">
+          <div class="half">
+            <div id="noah" class="answer-theirs answer-theirs-submitted">Noah answered.<br><span>Bathing in the blood of virgins.</span></div>
+            <div id="joe" class="answer-theirs answer-theirs-submitted">Joe answered.<br><span>Hiding in the clothes racks at department stores.</span></div>
+            <div id="david" class="answer-theirs answer-theirs-submitted">David answered.<br><span>When I go outside and see the stars in the sky and I look at them and think, "Gee, there sure are a lot of stars in the sky. Sort of makes you feel insignificant." Then I sigh and sort of just wander around thinking about whether or not I'll be remembered after I'm dead. Usually I figure I won't be, but then again maybe I will. Probably not though...</span></div>
+          </div>
 
+          <div class="half">
+            <div class="answer-theirs answer-theirs-active">Sarah is typing...</div>
+            <div class="answer-theirs answer-theirs-active">Brad is typing...</div>
+            <div class="answer-theirs answer-theirs-active">Jake is typing...</div>
+            <div class="answer-theirs">Calvin is idle.</div>
+            <div class="answer-theirs">Alex is idle.</div>
+          </div>
 
-    <!--
-        Client-side Templates
-        ========================
+          <!-- <div class="half">
+            <div class="answer-theirs">Noah is idle.</div>
+            <div class="answer-theirs">Joe is idle.</div>
+            <div class="answer-theirs">Sarah is idle.</div>
+            <div class="answer-theirs">Brad is idle.</div>
+            <div class="answer-theirs">Jake is idle.</div>
+            <div class="answer-theirs">Calvin is idle.</div>
+            <div class="answer-theirs">Alex is idle.</div>
+          </div> -->
+        </div>
 
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
-        that you load these templates client-side.
+        <div id="answerMine" class="answer-mine">
+          <div class="timer"><div class="timer-bar"></div></div>
 
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
-        
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-
-            + Import templates from other directories
-            + Use a different template engine (handlebars, jade, dust, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
-    -->
-
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
-
-
-    <!--
-
-      Client-side Javascript
-      ========================
-
-      You can always bring in JS files manually with `script` tags, or asynchronously
-      on the client using a solution like AMD (RequireJS).  Or, if you like, you can 
-      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
-
-      By default, files in your `assets/js` folder are included here
-      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
-      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
-      and concatenated into a single file.
-      
-      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-      For example, here are a few things you could do:
-          
-          + Change the order of your scripts
-          + Import scripts from other directories
-          + Use a different preprocessor, like TypeScript
-
-    -->
+          <textarea class="answer-textarea" placeholder="Things that make you feel young."></textarea>
+          <input id="submit" class="answer-submit" type="submit" value="Answer">
+        </div>
+      </div>
+    </div>
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
