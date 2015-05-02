@@ -1,0 +1,235 @@
+<!doctype html>
+
+<html>
+  <head>
+    <!--META-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>Best Worst Answer</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <style rel="stylesheet">
+      /* Typography */
+      body {color:#0f0915;font-family:"Lato", sans-serif;font-weight:300;line-height:1.25;}
+      
+      h1 {margin:0;font:300 36px/40px "Lato", sans-serif;}
+      h1 strong {font-weight:900;}
+      h2 {margin:20px 0 20px;padding:0 0 20px;border-bottom:1px #0eb8b4 solid;font:900 24px/19px "Lato", sans-serif;}
+      h3 {margin:0;font:900 14px/20px "Lato", sans-serif;}
+      h3 span {font-weight:300;}
+
+      p {margin:0;font:300 18px/20px "Lato", sans-serif;}
+
+      /* Helpers */
+      .bg-cyan {background:#09ded7;}
+      .bg-black {background:#0f0915;color:#deefeb;}
+      
+      .clr-white {color:hsla(164, 7%, 100%, .8);}
+      .clr-black {color:#0f0915;}
+
+      .half {float:left;width:50%;box-sizing:border-box;}
+      .half.left {padding:0 0 0 40px;}
+      .half.right {padding:0 40px 0 0;}
+
+      /* Layout */
+      html {height:100%;}
+      body {margin:0;height:100%;background:#221e26;}
+
+      .page {height:100%;}
+      .panel {display:none;position:relative;margin:50px;width:100%;min-height:100%;box-sizing:border-box;}
+      .panel:first-child {display:block;margin:0;}
+      .panel.fixed-height {height:100%;}
+      
+      .landing {background:#fff;padding:60px 40px;}
+      .landing .container {background:red;margin: 0 auto -60px;padding:0 0 90px;min-height:100%;height:auto !important;height:100%;background:#fff;box-sizing:border-box;}
+      .logo {width:211px;height:114px;}
+      .landing form {width:100%;}
+      .landing input {display:block;margin:20px 0 0;padding:0;width:100%;height:50px;overflow:hidden;border:none;font:300 36px/normal "Lato", sans-serif;}
+      .landing label {display:block;padding:10px 0 0;width:100%;border-top:1px solid #cfced0;font:900 14px/20px "Lato", sans-serif;}
+      .landing label span {color:#87848a;font-weight:300;}
+
+      .lobby {padding:60px 0 0;}
+      .number-of-players {margin:20px 0 0;}
+
+      .interstitial {padding:60px 40px 0;}
+      .interstitial h1 {padding:60px 0;}
+
+      .prompt {padding:80px 40px 0;}
+
+      .container {height:100%;overflow:auto;background:#0f0915;}
+
+      .current {padding:20px 40px;min-height:40px;background:#09ded7;color:#333;}
+      .current-reader {}
+
+      .answers-box {padding:0 0 60px;overflow:auto;color:hsla(164, 7%, 100%, .8);}
+      
+      .answer-theirs {position:relative;margin:0 0 1px;padding:10px 40px;overflow:hidden;background:#221e26;font-size:18px;line-height:20px;}
+      .answer-theirs-idle {background:transparent;}
+      .answer-theirs-typing {background:#140e19 url(/images/typing-three-dots-03.gif) 100% center no-repeat;background-size: 40px 20px;}
+      .answer-theirs-submitted {background:#221e26 url(/images/submitted-checkmark.png) 100% center no-repeat;background-size: 40px 20px;}
+      .answer-theirs-selected {background:#ed145b;color:#0f0915;font-weight:700;}
+      .answer-theirs .crown {position:absolute;left:10px;top:10px;}
+      .answer-theirs-display {padding:20px 40px;}
+
+      .score {display:inline-block;margin:0 10px 0 0;height:14px;width:14px;border:2px solid #4e4b51;border-radius:100%;color:#4e4b51;font:900 12px/16px "Lato", sans-serif;text-align:center;vertical-align:text-bottom;}
+      .score.blank {border-color:transparent;color:transparent;}
+
+      .answer-mine {position:absolute;right:0;bottom:0;left:0;padding:0 0 60px;background:#0f0915;}
+      .answer-textarea {display:block;box-sizing:border-box;padding:20px 40px 0;width:100%;height:87px;background:#0f0915;border:none;color:hsla(164, 7%, 100%, .8);font:300 18px/20px "Lato", sans-serif;}
+      .answer-submit {position:absolute;right:0;bottom:0;left:33%;height:60px;background:#ed145b;color:#0f0915;font:900 18px/60px "Lato", sans-serif;letter-spacing:2px;text-align:center;}
+
+      .button {position:absolute;right:0;bottom:0;left:33%;height:60px;font:900 18px/60px "Lato", sans-serif;letter-spacing:2px;text-align:center;}
+      .button-in-flow {position:relative;}
+
+      .timer {background:#ed145b;}
+      .timer-bar {height:3px;background:#ed145b;}
+  
+
+      /* Form */
+      textarea {resize:none;}
+      input:focus,
+      textarea:focus {outline:none;}
+
+      /* Placeholder */
+      .landing ::-webkit-input-placeholder {color:hsla(270, 57%, 8%, .5);}
+      ::-webkit-input-placeholder {color:hsla(163, 7%, 100%, .25);}
+      :-moz-placeholder {color:hsla(163, 7%, 100%, .25);opacity:1;}
+      ::-moz-placeholder {color:hsla(163, 7%, 100%, .25);opacity:1;}
+      :-ms-input-placeholder {color:hsla(163, 7%, 100%, .25);}
+
+      /* Scrollbar */
+      /*::-webkit-scrollbar              {width:10px;}
+      ::-webkit-scrollbar-button       { }
+      ::-webkit-scrollbar-track        {background:transparent;}
+      ::-webkit-scrollbar-track-piece  {}
+      ::-webkit-scrollbar-thumb        {background:hsla(163, 7%, 100%, .1);}
+      ::-webkit-scrollbar-corner       { }
+      ::-webkit-resizer                { }*/
+    </style>
+  </head>
+
+  <body>
+    <div class="page" id="page">
+      <div class="panel landing">
+        <div class="container">
+          <img class="logo" alt="Best Worst Answer" src="/images/best-worst-answer.png">
+          <form>
+            <input placeholder="Name" type="text">
+            <label for="name">NAME</label>
+
+            <input placeholder="XJLC" type="text">
+            <label for="room-code">ROOM CODE<br><span>(Leave blank to create new room.)</label></h3>
+          </form>
+        </div>
+
+        <a class="button bg-black" type="submit">JOIN GAME</a>
+      </div>
+
+      <div class="panel lobby bg-black clr-white">
+        <div class="half left">
+          <h1>XJLC</h1>
+          <h3 class="clr-white">ROOM CODE</h3>
+
+          <h1 class="number-of-players">6</h1>
+          <h3 class="clr-white">PLAYERS<br>
+            <span>(Max of 8 players.)</span></h3>
+        </div>
+        <div class="half right">
+          <h1>
+            David<br>
+            Sarah<br>
+            Jo<br>
+            Alex<br>
+            Jake<br>
+            Tyrone
+          </h1>
+        </div>
+
+        <a class="button bg-cyan clr-black" type="submit">EVERYBODY'S HERE</a>
+      </div>
+
+      <div class="panel interstitial bg-cyan">
+        <h1><strong>David</strong><br>will be judging all of you! Well, more than usual&hellip;</h1>  
+      </div>
+
+      <div class="panel prompt bg-cyan">
+        <h2>David will choose&hellip;</h2>
+        <h1>The real reason dinosaurs went extinct.</h1>
+        <a class="button bg-black" type="submit">START ROUND</a>
+      </div>
+
+
+      <div class="panel fixed-height bg-black">
+        <div class="container">
+          <div class="current">
+            <h3 class="current-reader">David</h3>
+            <p class="current-thing">The real reason dinosaurs went&hellip;</p>
+          </div>
+
+          <div class="answers-box">
+            <div class="answer-theirs answer-theirs-submitted"><span class="score">4</span>Jo</div>
+            <div class="answer-theirs answer-theirs-submitted"><span class="score">1</span>Tyrone</div>
+            <div class="answer-theirs answer-theirs-typing"><img class="crown" alt="Winner" src="/images/crown-small.png"><span class="score">8</span>Sarah</div>
+            <div class="answer-theirs answer-theirs-typing"><span class="score blank">0</span>Jake</div>
+            <div class="answer-theirs answer-theirs-idle"><span class="score blank">0</span>Alex</div>
+          </div>
+
+          <div id="answerMine" class="answer-mine">
+            <div class="timer"><div class="timer-bar"></div></div>
+
+            <textarea class="answer-textarea" placeholder="Type your answer here."></textarea>
+            <a id="submit" class="answer-submit" type="submit">SUBMIT ANSWER</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel fixed-height bg-black">
+        <div class="container">
+          <div class="current">
+            <h3 class="current-reader">David</h3>
+            <p class="current-thing">The real reason dinosaurs went extinct.</p>
+          </div>
+
+          <div class="answers-box">
+            <div class="answer-theirs answer-theirs-display">They're not dead; they're just sleepy.</div>
+            <div class="answer-theirs answer-theirs-display answer-theirs-selected">The hubris of man.</div>
+            <div class="answer-theirs answer-theirs-display">Smoking</div>
+            <div class="answer-theirs answer-theirs-display">The inability to clap.</div>
+            <div class="answer-theirs answer-theirs-display">Because they're so damn delicious.</div>
+          </div>
+
+          <a id="submit" class="answer-submit" type="submit">CHOOSE FAVORITE</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script>
+      var myElement = document.getElementById('page');
+      var hammertime = new Hammer(myElement);
+      
+      hammertime.on('swipeleft doubletap', function(ev) {
+        console.log(ev);
+        $('.panel').first().appendTo('.page');
+      });
+
+      hammertime.on('swiperight', function(ev) {
+        console.log(ev);
+        $('.panel').last().prependTo('.page');
+      });
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-62518815-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
